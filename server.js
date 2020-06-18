@@ -30,7 +30,7 @@ app.use(
 );
 
 // serve the public directory
-app.use(express.static("public"));
+app.use(express.static(__dirname + "public"));
 
 // reqeusts are taken through middleware
 app.use(router);
@@ -38,9 +38,9 @@ app.use(router);
 // use promises with Mongo and connect to the database
 // var databaseUrl = "news";
 mongoose.Promise = Promise;
-var MONGODB_URI = process.env.MONGODB_URI||"mongodb://localhost/news";
+var db = process.env.MONGODB_URI||"mongodb://localhost/news";
 // mongoose connection error handler
-mongoose.connect(MONGODB_URI, function (error) {
+mongoose.connect(db, function (error) {
   if (error) {
     console.log(error);
   } else {
