@@ -15,7 +15,7 @@ var app = express();
 var router = express.Router();
 
 // //require routes
-// require("./config/routes")(router);
+require("./config/routes")(router);
 
 // use body-parser for handling form submissions
 app.use(
