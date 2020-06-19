@@ -18,4 +18,4 @@ router.get('/', function (req, res) {
 // renders the article page 
 router.get('/article', function (req, res) {
 
-}) 
+});

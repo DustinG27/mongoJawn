@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 // create a new note schema
-var noteSchema = new Schema({
+var NoteSchema = new Schema({
     // associated article to attatch to
   _headlineId: {
     type: Schema.Types.ObjectId,
@@ -15,7 +15,7 @@ var noteSchema = new Schema({
 });
 
 // create not model
-var Note = mongoose.model("Note", noteSchema);
+var Note = mongoose.model("Note", NoteSchema);
 
 // export the model
 module.exports = Note;
