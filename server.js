@@ -14,8 +14,8 @@ var app = express();
 // set express router
 var router = express.Router();
 
-//require routes
-require("./config/routes")(router);
+// //require routes
+// require("./config/routes")(router);
 
 // use body-parser for handling form submissions
 app.use(
@@ -29,8 +29,6 @@ app.use(
   })
 );
 
-// Require all models
-var db = require("./models");
 
 // serve the public directory
 app.use(express.static(__dirname + "public"));
@@ -59,55 +57,6 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
-
-// routes -----------------------------------------------------------------------------------
-
-// use cheerio to scrape from rooster teeth and store them
-app.get("/scrape", function(req, res) {
-    request("https://blog.roosterteeth.com/", function(error, response, body) {
-      // Load the html body from request into cheerio
-      var $ = cheerio.load(body);
-
-      var articles = [];
-
-      $("div.uk-card-body").each(function(i, element) {
-  
-        // trim removes whitespace because the items return \n and \t before and after the text
-        var title = $(this).children(".card-title").text().trim();
-        var link = $(this).children("a.card-title").attr("href");
-        var sum = $(this).children(".card-content").text().trim();
-  
-      // Save an empty result object
-      var result = {};
-
-      // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .children("a")
-        .text()
-        .trim();
-
-      result.link = $(this)
-        .children("a")
-        .attr("href");
-
-        result.sum = $(this)
-        .children("p")
-        .text()
-        .trim();
-
-      // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, log it
-          console.log(err);
-        });
-      });
-    });
-  });
 
 // listen for the routes
 app.listen(PORT, function () {
