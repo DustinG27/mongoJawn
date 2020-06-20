@@ -53,6 +53,9 @@ router.get("/scrape", function (req, res) {
     };
     });
       // Redirect to the Articles Page, done at the end of the request for proper scoping
-      res.redirect("/articles");
+      res.redirect("/Article");
   });
 });
+
+// Export Router to Server.js
+module.exports = router;
